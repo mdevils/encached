@@ -1,0 +1,7 @@
+*.o
+*.ppu
+*.log
+CacherDaemon
+*~
+*.swp
+.DS_Store

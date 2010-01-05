@@ -1,1 +1,2 @@
 encached - memory cache daemon.
+FreePascal Compiler 2.4.0+ required to build the daemon.

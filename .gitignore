@@ -4,4 +4,6 @@
 CacherDaemon
 *~
 *.swp
+*.swo
+*.tmproj
 .DS_Store

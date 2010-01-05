@@ -96,7 +96,7 @@ implementation
 	end;
 
 	procedure TCacherThread.ProcessData;
-	var L: longint; Cmd, Key: AnsiString; P: Pointer; Data: PAnsiString;
+	var L: longint; Cmd, Key: AnsiString; P: Pointer; Data, CompareData: PAnsiString;
 	begin
 		while true do
 		begin
@@ -169,8 +169,16 @@ implementation
 					BufferLength := Length(Buffer);
 					WriteLn('SET ' + Key + '=' + Data^);
 					try
-						CacheHashtable.Put(Key, Data);
-						Socket.WriteStr('SUCCESS' + #13#10)
+						CompareData := PAnsiString(CacheHashtable.Get(Key));
+						if (CompareData <> nil) and (CompareData^ = Data^) then
+						begin
+							Socket.WriteStr('HIT' + #13#10)
+						end
+						else
+						begin
+							CacheHashtable.Put(Key, Data);
+							Socket.WriteStr('SUCCESS' + #13#10);
+						end;
 					except
 						Socket.WriteStr('FAILURE' + #13#10);
 					end;

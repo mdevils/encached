@@ -3,8 +3,7 @@
 SHELL := /bin/bash
 OPTIMIZE ?= -O3
 LINKING ?= -XX
-INCLUDES ?= inc/* *
-INCLUDES := $(shell ls -1d $(INCLUDES) | while read f; do if [ -d "$$f" ]; then echo -n ' -Fu'$$f; fi; done)
+INCLUDES := -Fuinc/unix -Fuinc/threading -Fuinc/net -Fuinc/lib -Fuserver
 
 build:: clean
 	fpc CacherDaemon.pas -vwehn -Mobjfpc $(OPTIMIZE) $(LINKING) $(INCLUDES)

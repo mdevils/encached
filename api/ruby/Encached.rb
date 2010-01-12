@@ -26,19 +26,27 @@ case @s.gets.chomp
   when 'HIT'
     return 'HIT'
 end
-
 end
 
 def get(key)
   @s.print("GET #{key.to_s.length} #{key}\r\n")
   response = @s.gets
   resp, len, data = response.split
-
+  response = response.delete resp
+  response = response.delete len   
+  response_len = response.lstrip.rstrip.length
+ 
 case resp
   when 'DATA'
   begin
-      response = response.delete resp
-      response = response.delete len
+if response_len >= len.to_i
+else
+  until response_len > len.to_i do
+  response2 = @s.gets
+  response_len = response_len + response2.length
+  response = response + response2
+end
+end      
   return response.lstrip
   end
     when 'NODATA'

@@ -10,5 +10,6 @@ build:: clean
 	L=`cat CacherDaemon | wc -c`; echo; echo `expr $$L / 1024`Kb
 
 clean::
-	rm -f *.o
-	find . | grep -v '\.git' | grep -E '\.(ppu|o)$$' | xargs rm -Rf
+	rm -f inc/net/*.o inc/unix/*.o inc/threading/*.o inc/lib/*.o server/*.o *.o \
+	inc/net/*.ppu inc/unix/*.ppu inc/threading/*.ppu inc/lib/*.ppu server/*.ppu *.ppu \
+	CacherDaemon

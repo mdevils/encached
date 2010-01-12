@@ -204,16 +204,11 @@ implementation
 					Buffer := Copy(Buffer, CurrentPos, BufferLength - CurrentPos);
 					BufferLength := Length(Buffer);
 
-					WriteLn('GET ' + Key);
-					P := CacheHashtable.Remove(Key);
-					if P = nil then
-						Socket.WriteStr('FAILURE' + #13#10)
+					WriteLn('REMOVE ' + Key);
+					if CacheHashtable.Remove(Key) then
+						Socket.WriteStr('SUCCESS' + #13#10)
 					else
-					begin
-						Data := PAnsiString(P);
-						Dispose(Data);
-						Socket.WriteStr('SUCCESS' + #13#10);
-					end;
+						Socket.WriteStr('FAILURE' + #13#10);
 				end
 				else
 				begin
@@ -243,9 +238,9 @@ implementation
 	end;
 
 initialization
-	CacheHashtable := THashtable.Create;
+	CacheHashtable := THashtable.Create(1000000, THashtableTraverser.Create(@ClearHashtable));
 
 finalization
-	CacheHashtable.Clear(@ClearHashtable);
+	CacheHashtable.Clear;
 	CacheHashtable.Destroy;
 end.

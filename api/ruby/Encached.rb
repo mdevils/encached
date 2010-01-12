@@ -38,7 +38,6 @@ case resp
   begin
     response[0..3] = ''
     response[0..len.length.to_i] = ''
-    response = response.gsub(/(^[A-Z]*1) +/, '')
     
   if response_len >= len.to_i
   else

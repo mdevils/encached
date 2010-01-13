@@ -2,7 +2,6 @@ require 'Encached'
 
 cache = Encached.new('127.0.0.1', 2332)
 
-
 cache.remove('hello')
 cache.remove('email123')
 cache.remove('DATA 123')

@@ -36,8 +36,7 @@ def get(key)
 case resp
   when 'DATA'
   begin
-    response[0..3] = ''
-    response[0..len.length.to_i] = ''
+    response[0..4 + len.length.to_i] = ''
     
   if response_len >= len.to_i
   else
